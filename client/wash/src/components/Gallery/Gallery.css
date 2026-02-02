@@ -1,0 +1,246 @@
+.gallery {
+  width: 100%;
+  background-color: #242424;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 80px 0;
+}
+
+.gallery-block {
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.gallery-header {
+  text-align: center;
+}
+
+.gallery-header h1 {
+  font-size: 45px;
+  font-weight: 300;
+  margin: 0 0 10px;
+  color: gold;
+}
+
+.gallery-header p {
+  font-size: 18px;
+  color: grey;
+  font-weight: 300;
+  margin: 0;
+}
+
+.gallery-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-container {
+  position: relative;
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.gallery-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 10% 60%;
+}
+
+.gallery-slide-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    transparent 100%
+  );
+  padding: 30px 40px;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.gallery-slide:hover .gallery-slide-overlay {
+  transform: translateY(0);
+}
+
+.gallery-slide-overlay h3 {
+  font-size: 24px;
+  font-weight: 300;
+  margin: 0;
+  color: #fff;
+}
+
+.gallery-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: gold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.gallery-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+}
+
+.gallery-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.gallery-button-prev {
+  left: 20px;
+}
+
+.gallery-button-next {
+  right: 20px;
+}
+
+.gallery-indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.gallery-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.gallery-indicator:hover {
+  border-color: gold;
+  background-color: rgba(255, 215, 0, 0.3);
+  transform: scale(1.2);
+}
+
+.gallery-indicator.active {
+  background-color: gold;
+  border-color: gold;
+  width: 32px;
+  border-radius: 6px;
+}
+
+@media (max-width: 1024px) {
+  .gallery-block {
+    width: 95%;
+  }
+  .gallery-header h1 {
+    font-size: 36px;
+  }
+  .gallery-header p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    padding: 60px 0;
+  }
+  .gallery-block {
+    width: 95%;
+    gap: 30px;
+  }
+  .gallery-header h1 {
+    font-size: 30px;
+  }
+  .gallery-header p {
+    font-size: 14px;
+  }
+  .gallery-button {
+    width: 40px;
+    height: 40px;
+  }
+  .gallery-button-prev {
+    left: 10px;
+  }
+  .gallery-button-next {
+    right: 10px;
+  }
+  .gallery-slide-overlay {
+    padding: 20px;
+  }
+  .gallery-slide-overlay h3 {
+    font-size: 18px;
+  }
+  .gallery-indicators {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-container {
+    aspect-ratio: 4 / 3;
+  }
+  .gallery-button {
+    width: 36px;
+    height: 36px;
+  }
+  .gallery-indicator {
+    width: 10px;
+    height: 10px;
+  }
+  .gallery-indicator.active {
+    width: 24px;
+  }
+}
+
+/* Отключение анимаций для пользователей с prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-track {
+    transition: none;
+  }
+  .gallery-button {
+    transition: none;
+  }
+  .gallery-indicator {
+    transition: none;
+  }
+}

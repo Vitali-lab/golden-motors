@@ -1,0 +1,136 @@
+.reviwes {
+  width: 100%;
+  height: 100%;
+  background-color: #161616;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.reviwes-block {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 80px 0;
+}
+
+.reviwes-text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.reviwes-text h1 {
+  font-size: 45px;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+.reviwes-text p {
+  font-size: 20px;
+  color: gray;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.reviews-cards {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.section-rewiwes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reviews-main {
+  width: 100%;
+}
+
+.reviews-iframe-container {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviews-iframe {
+  width: 100%;
+  height: 100%;
+  border: 3px solid gold;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.reviews-link {
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #000000ff;
+  font-size: 12px;
+  font-family: "YS Text", sans-serif;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-height: 14px;
+  white-space: nowrap;
+  padding: 0 16px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .reviwes-block {
+    width: 90%;
+  }
+  .reviews-iframe-container {
+    max-width: 100%;
+    height: 500px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .reviwes-block {
+    width: 95%;
+    margin: 50px 0;
+  }
+  .reviwes-text h1 {
+    font-size: 30px;
+  }
+  .reviwes-text p {
+    font-size: 15px;
+  }
+  .section-rewiwes {
+    width: 100%;
+  }
+  .reviews-iframe-container {
+    max-width: 100%;
+    height: 400px;
+  }
+  .reviews-iframe {
+    border-width: 2px;
+  }
+}

@@ -1,0 +1,312 @@
+.book {
+  width: 100%;
+  background-color: #242424;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.book-block {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 80px 0;
+}
+
+.book-text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+}
+.book-text h1 {
+  font-size: 45px;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+.book-text p {
+  font-size: 15px;
+  color: grey;
+  font-weight: 300;
+  margin: 0;
+  text-align: center;
+}
+.book-form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+  background-color: #161616;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.book-form-inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.book-form-input-name input,
+.book-form-input-phone input,
+.book-form-input-note textarea {
+  width: 100%;
+  background-color: #161616;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px;
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.book-form-input-name input,
+.book-form-input-phone input {
+  height: 60px;
+}
+
+.book-form-input-note textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.book-form-input-name input:focus,
+.book-form-input-phone input:focus,
+.book-form-input-note textarea:focus,
+.book-form-select select:focus {
+  outline: none;
+  border-color: gold;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+.book-form-input-name input:invalid:not(:focus):not(:placeholder-shown),
+.book-form-input-phone input:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: #ff4444;
+}
+
+.required {
+  color: gold;
+}
+
+.error-message {
+  color: #ff4444;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.book-form-input-name,
+.book-form-input-phone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+.book-form-select {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  position: relative;
+  margin: 10px 0;
+}
+.book-form-select label {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+.book-form-select select {
+  width: 100%;
+  height: 60px;
+  background-color: #161616;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.book-form-select select option {
+  background-color: #161616;
+  color: #fff;
+}
+.book-form-input-note {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  margin: 10px 0;
+}
+
+.book-form-date-time,
+.book-form-contact-method {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.book-form-contact-method {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.book-form-contact-label {
+  font-size: 14px;
+  color: grey;
+}
+
+.book-form-contact-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.book-form-contact-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.book-form-contact-options input[type="radio"] {
+  width: 16px;
+  height: 16px;
+}
+
+.book-form-privacy {
+  width: 100%;
+  margin: 10px 0;
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.book-form-privacy label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.book-form-privacy input[type="checkbox"] {
+  margin-top: 3px;
+}
+
+.book-form-button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 10px 0;
+}
+
+.book-form-button button {
+  width: 100%;
+  height: 45px;
+  background-color: gold;
+  color: #161616;
+  font-size: 20px;
+  font-weight: 300;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.book-form-button button:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.book-form-button button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.book-form-error,
+.book-form-success {
+  width: 100%;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.book-form-error {
+  background-color: rgba(255, 68, 68, 0.1);
+  border: 1px solid rgba(255, 68, 68, 0.3);
+}
+
+.book-form-success {
+  background-color: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.success-message {
+  color: #4caf50;
+  font-size: 16px;
+  font-weight: 400;
+  display: block;
+}
+
+.book-form-error .error-message {
+  color: #ff4444;
+  font-size: 16px;
+  font-weight: 400;
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .book-block {
+    width: 90%;
+  }
+  .book-form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .book-block {
+    width: 95%;
+    margin: 50px 0;
+  }
+  .book-form {
+    width: 100%;
+    padding: 20px;
+  }
+  .book-form-inputs {
+    flex-direction: column;
+    gap: 0;
+  }
+  .book-text h1 {
+    font-size: 30px;
+  }
+  .book-text p {
+    font-size: 14px;
+  }
+}
