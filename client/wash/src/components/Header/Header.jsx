@@ -24,10 +24,6 @@ export const Header = ({ onNavClick }) => {
             src="https://goldenmotors.by/wp-content/uploads/2022/06/logo.png"
             alt="logo"
           />
-          <div className="header-logo-text">
-            <span>Golden Motors</span>
-            <span className="header-logo-sub">детейлинг & мойка</span>
-          </div>
         </div>
 
         <nav className="header-nav">

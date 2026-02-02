@@ -51,7 +51,7 @@
 }
 .complex-card {
   width: 27%;
-  height: 590px;
+  height: 650px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -149,7 +149,7 @@
   margin: 20px 0;
 }
 .complex-card-button button:hover {
-  transform: scale(1.1);
+  transform: scale(0.9);
 }
 
 .complex-card:hover > .complex-card-button button {
