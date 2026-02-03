@@ -6,11 +6,9 @@ import { LuMouse } from "react-icons/lu";
 import "./Main.css";
 
 export const Main = ({ bookRef, moreRef }) => {
-  // Для главного экрана показываем элементы сразу при загрузке
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Небольшая задержка для плавного появления
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 100);
@@ -65,7 +63,7 @@ export const Main = ({ bookRef, moreRef }) => {
           >
             <div className="main-icon">
               <IoPricetagOutline color="gold" size={30} />
-              <p>Низкие цены</p>
+              <p>Приятные цены</p>
             </div>
             <div className="main-icon">
               <IoTimeOutline color="gold" size={30} />

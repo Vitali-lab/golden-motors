@@ -198,4 +198,7 @@
   .main-buttons {
     flex-direction: column;
   }
+  .main-mouse {
+    display: none;
+  }
 }
