@@ -50,7 +50,7 @@
   margin-top: 40px;
 }
 .complex-card {
-  width: 27%;
+  width: 100%;
   height: 650px;
   display: flex;
   flex-direction: column;
@@ -69,8 +69,21 @@
   border: 3px solid gold;
 }
 
+.complex-hit-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #ffd700, #ffb300);
+  color: #111;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+}
+
 .complex-card h3 {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 300;
   margin: 0;
   margin-bottom: 10px;
@@ -151,7 +164,10 @@
 .complex-card-button button:hover {
   transform: scale(0.9);
 }
-
+.complex-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+}
 .complex-card:hover > .complex-card-button button {
   background-color: #242424;
   color: gold;

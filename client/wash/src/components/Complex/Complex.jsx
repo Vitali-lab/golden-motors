@@ -1,8 +1,9 @@
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { complexs } from "../../app/appInfo";
+import { scrollTo } from "../../functions/scrollTo";
 import "./Complex.css";
 
-export const Complex = () => {
+export const Complex = ({ onSelectService, onChooseService }) => {
   const [textRef, textVisible] = useScrollReveal({ threshold: 0.2 });
   const [cardsRef, cardsVisible] = useScrollReveal({ threshold: 0.1 });
 
@@ -28,11 +29,14 @@ export const Complex = () => {
           {complexs.map((item, index) => {
             return (
               <div
-                key={item.id}
+                key={item.title}
                 className={`complex-card scroll-reveal-bottom-scale ${
                   cardsVisible ? "revealed" : ""
-                } scroll-reveal-delay-${Math.min(index + 1, 6)} ${item.hit ? "hit" : ""}`}
+                } scroll-reveal-delay-${Math.min(index + 1, 6)} ${
+                  item.hit ? "hit" : ""
+                }`}
               >
+                {item.hit && <span className="complex-hit-badge">Хит</span>}
                 <div className="complex-card-text">
                   <h3>{item.title}</h3>
                   <h2>{item.price}</h2>
@@ -41,7 +45,7 @@ export const Complex = () => {
                   <ul>
                     {item.details.map((el) => (
                       <li
-                        key={`${item.id}-${el}`}
+                        key={`${item.title}-${el}`}
                         className="complex-card-detail"
                       >
                         {el}
@@ -51,7 +55,14 @@ export const Complex = () => {
                 </div>
                 <p>{item.description}</p>
                 <div className="complex-card-button">
-                  <button aria-label={`Выбрать услугу ${item.title}`}>
+                  <button
+                    type="button"
+                    aria-label={`Выбрать услугу ${item.title}`}
+                    onClick={() => {
+                      onSelectService?.(item.title);
+                      scrollTo(onChooseService, "book");
+                    }}
+                  >
                     Выбрать {item.title}
                   </button>
                 </div>

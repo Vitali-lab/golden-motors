@@ -1,4 +1,5 @@
 import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { companyAdress, companyPhone } from "../../app/appInfo";
 import "./Contacts.css";
 
 export const Contacts = () => {
@@ -21,13 +22,13 @@ export const Contacts = () => {
           <div className="contacts-grid">
             <div className="contacts-item">
               <h3>Адрес</h3>
-              <p>г. Минск, ул. Примерная, 10</p>
-              <p className="contacts-muted">Уточните фактический адрес мойки</p>
+              <p>{companyAdress}</p>
+              <p className="contacts-muted">Фактический адрес мойки</p>
             </div>
             <div className="contacts-item">
               <h3>Телефон</h3>
               <a href="tel:+375291234567" className="contacts-phone">
-                +375 (29) 123-45-67
+                {companyPhone}
               </a>
               <p className="contacts-muted">
                 Звоните для быстрых вопросов и уточнений
@@ -35,7 +36,7 @@ export const Contacts = () => {
             </div>
             <div className="contacts-item">
               <h3>График работы</h3>
-              <p>Пн–Вс: 9:00 – 21:00</p>
+              <p>Пн–Вс: 9:00 – 19:00</p>
               <p className="contacts-muted">Без выходных</p>
             </div>
             <div className="contacts-item">
@@ -50,18 +51,15 @@ export const Contacts = () => {
         <div className="contacts-map-wrapper">
           <div className="contacts-map">
             <iframe
-              title="Карта Golden Motors"
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3A0d4e3d0d5b9c4f27b4efb6e1d58b95e3c9b3f1f83d1c6a6d1c7c2f1d8c2a5f3&amp;source=constructor"
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A6b29b1da39e48fd38bc61fd0da9cfffa38f47b3bce64831ee293fe9f76a29b2b&amp;source=constructor"
+              width="500"
+              height="400"
+              frameborder="0"
               loading="lazy"
             ></iframe>
           </div>
-          <p className="contacts-map-note">
-            Вставьте сюда реальную карту с точкой вашей мойки (Яндекс или
-            Google карты).
-          </p>
         </div>
       </div>
     </section>
   );
-}
-
+};

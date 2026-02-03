@@ -1,5 +1,14 @@
-export const companyName = "Golden Motors";
+import standart_wash from "../assets/standart_wash.png";
+import techno_wash from "../assets/techno_wash.png";
+import without_sushka from "../assets/without_sushka.png";
+import wash_with_kwarc from "../assets/wash_with_kwarc.png";
+import uborka_salona from "../assets/uborka_salona.png";
+import bagajnik from "../assets/bagajnik.png";
+import vlaga_salon from "../assets/vlaga_salon.png";
 
+export const companyName = "Golden Motors";
+export const companyPhone = "+375 (44) 715-66-66";
+export const companyAdress = "г.Минск, ул. Тимирязева, 46к8";
 export const companyDevis =
   "Профессиональная автомойка с исключительным результатом. Запишитесь сейчас и почувствуйте разницу.";
 
@@ -10,49 +19,49 @@ export const servises = [
     icon: "IoWaterOutline",
     description: "Мойка кузова, воск, сушка, проемы",
     price: "от 26 BYN",
-    img: "https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg",
+    img: standart_wash,
   },
   {
     id: 2,
     title: "Техномойка",
     description: "Мойка кузова (сбить грязь)",
     price: "от 10 BYN",
-    img: "https://images.pexels.com/photos/6872582/pexels-photo-6872582.jpeg",
+    img: techno_wash,
   },
   {
     id: 3,
     title: "Мойка без сушки",
     description: "Стандартная мойка без этапа сушки",
     price: "от 20 BYN",
-    img: "https://images.pexels.com/photos/6872151/pexels-photo-6872151.jpeg",
+    img: without_sushka,
   },
   {
     id: 161,
     title: "Мойка «Кварц»",
     description: "Мойка кузова, кварцевое покрытие, сушка, проемы",
     price: "от 56 BYN",
-    img: "https://images.pexels.com/photos/10565556/pexels-photo-10565556.jpeg", // Заглушка (Premium wash)
+    img: wash_with_kwarc,
   },
   {
     id: 4,
     title: "Уборка салона",
     description: "Уборка салона пылесосом",
     price: "от 12 BYN",
-    img: "https://images.pexels.com/photos/6872585/pexels-photo-6872585.jpeg",
+    img: uborka_salona,
   },
   {
     id: 41,
     title: "Уборка багажника",
     description: "Уборка багажника пылесосом",
     price: "от 5 BYN",
-    img: "https://images.pexels.com/photos/6211095/pexels-photo-6211095.jpeg", // Заглушка (Trunk)
+    img: bagajnik,
   },
   {
     id: 5,
     title: "Влажная уборка",
     description: "Влажная уборка салона",
     price: "от 10 BYN",
-    img: "https://images.pexels.com/photos/9739213/pexels-photo-9739213.jpeg",
+    img: vlaga_salon,
   },
   {
     id: 6,
@@ -90,13 +99,6 @@ export const servises = [
     img: "https://images.pexels.com/photos/11644368/pexels-photo-11644368.jpeg", // Заглушка (Wheels)
   },
   {
-    id: 10,
-    title: "Уход за кожей",
-    description: "Обновление кожи (+4,00 руб)",
-    price: "от 13 BYN",
-    img: "https://images.pexels.com/photos/3770176/pexels-photo-3770176.jpeg", // Заглушка (Leather)
-  },
-  {
     id: 11,
     title: "Чернение резины",
     description: "Обработка шин",
@@ -111,13 +113,6 @@ export const servises = [
     img: "https://images.pexels.com/photos/9783353/pexels-photo-9783353.jpeg", // Заглушка (Engine)
   },
   {
-    id: 17,
-    title: "Твердый воск",
-    description: "Нанесение твердого воска (вручную)",
-    price: "от 50 BYN",
-    img: "https://images.pexels.com/photos/7565434/pexels-photo-7565434.jpeg", // Заглушка (Wax)
-  },
-  {
     id: 18,
     title: "Антидождь",
     description: "Гидрофобная обработка стекол",
@@ -125,24 +120,7 @@ export const servises = [
     img: "https://images.pexels.com/photos/13627447/pexels-photo-13627447.jpeg", // Заглушка (Rain repellent)
   },
 ];
-
-export const complexs = [
-  {
-    title: "Комплекс «Все включено»",
-    details: [
-      "Мойка кузова и проемов",
-      "Воск и сушка",
-      "Уборка салона и багажника пылесосом",
-      "Обновление пластика в салоне",
-      "Влажная уборка",
-      "Мойка стекол (внутри/снаружи)",
-      "Мойка ковриков",
-    ],
-    price: "от 62 BYN",
-    description: "Полный уход за автомобилем: кузов и салон",
-    img: "https://images.pexels.com/photos/14023348/pexels-photo-14023348.jpeg",
-    hit: true,
-  },
+export const extraServices = [
   {
     title: "Химчистка салона",
     details: [
@@ -166,6 +144,39 @@ export const complexs = [
     description: "Профессиональная полировка ЛКП",
     img: "https://images.pexels.com/photos/14532657/pexels-photo-14532657.jpeg", // Заглушка (Polishing)
     hit: false,
+  },
+  {
+    id: 10,
+    title: "Уход за кожей",
+    description: "Обновление кожи (+4,00 руб)",
+    price: "от 13 BYN",
+    img: "https://images.pexels.com/photos/3770176/pexels-photo-3770176.jpeg", // Заглушка (Leather)
+  },
+  {
+    id: 17,
+    title: "Твердый воск",
+    description: "Нанесение твердого воска (вручную)",
+    price: "от 50 BYN",
+    img: "https://images.pexels.com/photos/7565434/pexels-photo-7565434.jpeg", // Заглушка (Wax)
+  },
+];
+
+export const complexs = [
+  {
+    title: "Комплекс «Все включено»",
+    details: [
+      "Мойка кузова и проемов",
+      "Воск и сушка",
+      "Уборка салона и багажника пылесосом",
+      "Обновление пластика в салоне",
+      "Влажная уборка",
+      "Мойка стекол (внутри/снаружи)",
+      "Мойка ковриков",
+    ],
+    price: "от 62 BYN",
+    description: "Полный уход за автомобилем: кузов и салон",
+    img: "https://images.pexels.com/photos/14023348/pexels-photo-14023348.jpeg",
+    hit: true,
   },
 ];
 
@@ -337,7 +348,3 @@ export const extraServicesOb = [
     price: "от 60 BYN",
   },
 ];
-
-`привет обновил игформацию в @client/wash/src/app/appInfo.js  теперь она актуальная 
-обнови@client/wash/src/components/Complex @client/wash/src/components/Services  согласно новой информации 
-так же создвй новый блок про оклейку авто вся информация тоже в @client/wash/src/app/appInfo.js  только с окончанием "Ob"`;

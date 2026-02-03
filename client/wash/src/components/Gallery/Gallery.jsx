@@ -91,7 +91,7 @@ export const Gallery = () => {
             blockVisible ? "revealed" : ""
           }`}
         >
-          <h1>Наша работа</h1>
+          <h1>Галерея</h1>
           <p>
             Посмотрите результаты нашей работы — качество, которому можно
             доверять
@@ -117,9 +117,7 @@ export const Gallery = () => {
                     alt={image.alt}
                     loading={index < 2 ? "eager" : "lazy"}
                   />
-                  <div className="gallery-slide-overlay">
-                    <h3>{image.title}</h3>
-                  </div>
+                  <div className="gallery-slide-overlay"></div>
                 </div>
               ))}
             </div>

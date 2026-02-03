@@ -7,9 +7,13 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || "0.0.0.0";
 
 // Middleware
-app.use(cors());
+const corsOptions = process.env.CORS_ORIGIN
+  ? { origin: process.env.CORS_ORIGIN.split(",").map((o) => o.trim()) }
+  : {};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -88,7 +92,31 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
-  console.log(`📱 Telegram bot token: ${process.env.TELEGRAM_BOT_TOKEN ? "✅ Configured" : "❌ Not configured"}`);
+const server = app.listen(PORT, HOST, () => {
+  console.log(`🚀 Server is running on http://${HOST}:${PORT}`);
+  console.log(
+    `📱 Telegram: ${process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID ? "✅ Configured" : "❌ Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in .env"}`,
+  );
+});
+
+// Graceful shutdown
+const shutdown = (signal) => {
+  console.log(`\n${signal} received. Shutting down gracefully...`);
+  server.close(() => {
+    console.log("Server closed.");
+    process.exit(0);
+  });
+  setTimeout(() => process.exit(1), 10000);
+};
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));
+
+// Uncaught errors
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+  process.exit(1);
+});
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+  process.exit(1);
 });

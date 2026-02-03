@@ -1,10 +1,11 @@
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import "./Services.css";
-import { servises } from "../../app/appInfo";
+import { servises, extraServices } from "../../app/appInfo";
 
 export const Services = ({ moreRef }) => {
   const [textRef, textVisible] = useScrollReveal({ threshold: 0.2 });
   const [cardsRef, cardsVisible] = useScrollReveal({ threshold: 0.1 });
+  const [extraRef, extraVisible] = useScrollReveal({ threshold: 0.1 });
 
   return (
     <section ref={moreRef} className="services" id="services">
@@ -31,6 +32,40 @@ export const Services = ({ moreRef }) => {
                 key={item.id}
                 className={`services-card scroll-reveal-bottom-scale ${
                   cardsVisible ? "revealed" : ""
+                } scroll-reveal-delay-${Math.min(index + 1, 6)}`}
+                role="article"
+              >
+                <img
+                  src={item.img}
+                  alt={`${item.title} - ${item.description}`}
+                  loading="lazy"
+                />
+                <div className="services-card-text">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <h2>{item.price}</h2>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div
+          ref={extraRef}
+          className={`services-extra-text scroll-reveal-bottom ${
+            extraVisible ? "revealed" : ""
+          }`}
+        >
+          <h1>Дополнительные услуги</h1>
+          <p>Детейлинг и восстановительные процедуры для вашего автомобиля</p>
+        </div>
+        <div className={`services-cards ${extraVisible ? "revealed" : ""}`}>
+          {extraServices.map((item, index) => {
+            return (
+              <div
+                key={item.title}
+                className={`services-card scroll-reveal-bottom-scale ${
+                  extraVisible ? "revealed" : ""
                 } scroll-reveal-delay-${Math.min(index + 1, 6)}`}
                 role="article"
               >

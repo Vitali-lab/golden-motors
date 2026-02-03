@@ -15,7 +15,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 80px 0;
+  margin: 30px 0;
 }
 
 .services-text {
@@ -27,6 +27,30 @@
   position: relative;
   text-align: center;
 }
+.services-extra-text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  margin-top: 50px;
+}
+.services-extra-text h1 {
+  font-size: 45px;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 10px;
+  color: gold;
+}
+.services-extra-text p {
+  font-size: 20px;
+  color: grey;
+  font-weight: 300;
+  width: 90%;
+}
+
 .services-text h1 {
   font-size: 45px;
   font-weight: 300;
@@ -74,7 +98,6 @@
 }
 .services-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
 }
 @media (prefers-reduced-motion: reduce) {
   .services-card {

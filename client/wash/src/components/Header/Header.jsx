@@ -1,15 +1,7 @@
 import "./Header.css";
-
-const scrollTo = (onNavClick, id) => {
-  if (typeof onNavClick === "function") {
-    onNavClick(id);
-  } else {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }
-};
+import logo from "../../assets/logo.png";
+import { companyPhone } from "../../app/appInfo";
+import { scrollTo } from "../../functions/scrollTo";
 
 export const Header = ({ onNavClick }) => {
   return (
@@ -20,10 +12,7 @@ export const Header = ({ onNavClick }) => {
           onClick={() => scrollTo(onNavClick, "top")}
           aria-label="На главную"
         >
-          <img
-            src="https://goldenmotors.by/wp-content/uploads/2022/06/logo.png"
-            alt="logo"
-          />
+          <img src={logo} alt="logo" />
         </div>
 
         <nav className="header-nav">
@@ -33,13 +22,6 @@ export const Header = ({ onNavClick }) => {
             onClick={() => scrollTo(onNavClick, "services")}
           >
             Услуги
-          </button>
-          <button
-            type="button"
-            className="header-link"
-            onClick={() => scrollTo(onNavClick, "complex")}
-          >
-            Комплексы
           </button>
           <button
             type="button"
@@ -66,7 +48,7 @@ export const Header = ({ onNavClick }) => {
 
         <div className="header-actions">
           <a className="header-phone" href="tel:+375291234567">
-            +375 (29) 123-45-67
+            {companyPhone}
           </a>
           <button
             type="button"

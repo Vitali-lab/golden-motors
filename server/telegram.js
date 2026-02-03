@@ -1,9 +1,8 @@
 /**
  * Функция для отправки сообщений в Telegram через Bot API
+ * Токен и chat_id задаются только через переменные окружения (.env)
+ * Читаем env при вызове, т.к. dotenv.config() выполняется после импортов
  */
-
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "8186376750:AAEhEwgUwtBOzd4hiPMGNIcsKuPbBOBTbIQ";
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "492982383";
 
 /**
  * Отправляет сообщение в Telegram
@@ -12,13 +11,31 @@ const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "492982383";
  * @returns {Promise<{success: boolean, error?: string}>}
  */
 export async function sendToTelegram(message, chatId = null) {
-  try {
-    // Используем chatId из параметра или из переменных окружения
-    const targetChatId = chatId || TELEGRAM_CHAT_ID;
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
-    if (!targetChatId) {
-      console.warn("⚠️ TELEGRAM_CHAT_ID не указан. Пытаемся получить через getUpdates...");
-      
+  try {
+    if (!TELEGRAM_BOT_TOKEN) {
+      return {
+        success: false,
+        error: "TELEGRAM_BOT_TOKEN не задан. Добавьте его в .env",
+      };
+    }
+
+    // Поддержка нескольких chat_id через запятую: 123,456,-100789
+    const chatIdsRaw = chatId || TELEGRAM_CHAT_ID;
+    const targetChatIds = chatIdsRaw
+      ? String(chatIdsRaw)
+          .split(",")
+          .map((id) => id.trim())
+          .filter(Boolean)
+      : [];
+
+    if (targetChatIds.length === 0) {
+      console.warn(
+        "⚠️ TELEGRAM_CHAT_ID не указан. Пытаемся получить через getUpdates...",
+      );
+
       // Попробуем получить chat_id через getUpdates
       try {
         const updatesUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
@@ -29,10 +46,14 @@ export async function sendToTelegram(message, chatId = null) {
           // Берем chat_id из последнего сообщения
           const lastUpdate = updatesData.result[updatesData.result.length - 1];
           const chatIdFromUpdate = lastUpdate.message?.chat?.id;
-          
+
           if (chatIdFromUpdate) {
             console.log(`✅ Найден chat_id: ${chatIdFromUpdate}`);
-            return await sendMessage(message, chatIdFromUpdate);
+            return await sendMessage(
+              TELEGRAM_BOT_TOKEN,
+              message,
+              chatIdFromUpdate,
+            );
           }
         }
       } catch (updateError) {
@@ -41,11 +62,30 @@ export async function sendToTelegram(message, chatId = null) {
 
       return {
         success: false,
-        error: "Не удалось определить chat_id. Пожалуйста, укажите TELEGRAM_CHAT_ID в .env файле.",
+        error:
+          "Не удалось определить chat_id. Пожалуйста, укажите TELEGRAM_CHAT_ID в .env файле.",
       };
     }
 
-    return await sendMessage(message, targetChatId);
+    // Отправляем во все указанные чаты
+    let lastError = null;
+    let anySuccess = false;
+    for (const cid of targetChatIds) {
+      const result = await sendMessage(TELEGRAM_BOT_TOKEN, message, cid);
+      if (result.success) {
+        anySuccess = true;
+      } else {
+        lastError = result.error;
+        console.warn(`⚠️ Не удалось отправить в чат ${cid}: ${result.error}`);
+      }
+    }
+
+    return anySuccess
+      ? { success: true }
+      : {
+          success: false,
+          error: lastError || "Ошибка отправки во все чаты",
+        };
   } catch (error) {
     console.error("Error sending to Telegram:", error);
     return {
@@ -58,8 +98,8 @@ export async function sendToTelegram(message, chatId = null) {
 /**
  * Отправляет сообщение в указанный чат
  */
-async function sendMessage(message, chatId) {
-  const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+async function sendMessage(token, message, chatId) {
+  const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
   try {
     const response = await fetch(url, {
@@ -83,7 +123,7 @@ async function sendMessage(message, chatId) {
         success: false,
         error: data.description || "Ошибка отправки сообщения",
       };
-  }
+    }
   } catch (error) {
     throw new Error(`Failed to send message: ${error.message}`);
   }
@@ -93,8 +133,10 @@ async function sendMessage(message, chatId) {
  * Получает информацию о боте
  */
 export async function getBotInfo() {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) return null;
   try {
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe`;
+    const url = `https://api.telegram.org/bot${token}/getMe`;
     const response = await fetch(url);
     const data = await response.json();
     return data;

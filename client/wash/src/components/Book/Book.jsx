@@ -1,22 +1,33 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
-import { servises } from "../../app/appInfo";
+import { servises, complexs, extraServices } from "../../app/appInfo";
 import { API_ENDPOINTS } from "../../config/api";
 import "./Book.css";
 
-export const Book = ({ bookRef }) => {
+export const Book = ({ bookRef, selectedService }) => {
   const [textRef, textVisible] = useScrollReveal({ threshold: 0.2 });
   const [formRef, formVisible] = useScrollReveal({ threshold: 0.1 });
+
+  const allServices = useMemo(
+    () => [...servises, ...complexs, ...extraServices],
+    []
+  );
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    service: servises[0]?.title || "",
+    service: allServices[0]?.title || "",
     note: "",
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!selectedService) return;
+    setFormData((prev) => ({ ...prev, service: selectedService }));
+  }, [selectedService]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,7 +90,7 @@ export const Book = ({ bookRef }) => {
         setFormData({
           name: "",
           phone: "",
-          service: servises[0]?.title || "",
+          service: allServices[0]?.title || "",
           note: "",
         });
 
@@ -177,9 +188,12 @@ export const Book = ({ bookRef }) => {
               onChange={handleChange}
               required
             >
-              {servises.map((item) => {
+              {allServices.map((item) => {
                 return (
-                  <option key={item.id} value={item.title}>
+                  <option
+                    key={item.id ?? item.title}
+                    value={item.title}
+                  >
                     {item.title} - {item.price}
                   </option>
                 );
