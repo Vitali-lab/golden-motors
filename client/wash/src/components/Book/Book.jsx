@@ -9,8 +9,16 @@ export const Book = ({ bookRef, selectedService }) => {
   const [formRef, formVisible] = useScrollReveal({ threshold: 0.1 });
 
   const allServices = useMemo(
-    () => [...servises, ...complexs, ...extraServices],
-    []
+    () => [
+      ...servises,
+      ...complexs,
+      ...extraServices,
+      {
+        id: 30,
+        title: "Консультация по оклейке плёнкой автомобиля",
+      },
+    ],
+    [],
   );
 
   const [formData, setFormData] = useState({
@@ -94,7 +102,6 @@ export const Book = ({ bookRef, selectedService }) => {
           note: "",
         });
 
-        // Скрываем сообщение об успехе через 5 секунд
         setTimeout(() => {
           setSubmitSuccess(false);
         }, 5000);
@@ -190,10 +197,7 @@ export const Book = ({ bookRef, selectedService }) => {
             >
               {allServices.map((item) => {
                 return (
-                  <option
-                    key={item.id ?? item.title}
-                    value={item.title}
-                  >
+                  <option key={item.id ?? item.title} value={item.title}>
                     {item.title} - {item.price}
                   </option>
                 );

@@ -9,7 +9,6 @@ export const Gallery = () => {
   const intervalRef = useRef(null);
   const [blockRef, blockVisible] = useScrollReveal({ threshold: 0.2 });
 
-  // Заглушки изображений - замените на реальные фото позже
   const images = [
     {
       id: 1,
@@ -44,6 +43,18 @@ export const Gallery = () => {
     {
       id: 6,
       src: "https://avatars.mds.yandex.net/get-altay/16771051/2a000001971067529e299fc7260cee790db0/XXXL",
+      alt: "Защитное покрытие",
+      title: "Защитное покрытие",
+    },
+    {
+      id: 7,
+      src: "https://avatars.mds.yandex.net/get-altay/18148618/2a0000019b35f430b7c58117a825b8676c2a/XXXL",
+      alt: "Защитное покрытие",
+      title: "Защитное покрытие",
+    },
+    {
+      id: 8,
+      src: "https://avatars.mds.yandex.net/get-altay/14839591/2a00000196d98d4f522f90597a38c1c1b224/XXXL",
       alt: "Защитное покрытие",
       title: "Защитное покрытие",
     },

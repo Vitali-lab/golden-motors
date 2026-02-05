@@ -5,6 +5,18 @@ import wash_with_kwarc from "../assets/wash_with_kwarc.png";
 import uborka_salona from "../assets/uborka_salona.png";
 import bagajnik from "../assets/bagajnik.png";
 import vlaga_salon from "../assets/vlaga_salon.png";
+import update_plastic from "../assets/update_plastic.png";
+import glass_wash from "../assets/glass_wash.png";
+import panoram from "../assets/panoram.png";
+import carpets from "../assets/carpets.png";
+import disks from "../assets/disks.png";
+import rezina from "../assets/rezina.png";
+import dvig_wash from "../assets/dvig_wash.png";
+import anti_rain from "../assets/anti_rain.png";
+import him from "../assets/him.png";
+import polirovka from "../assets/polirovka.png";
+import koza from "../assets/koza.png";
+import vosk from "../assets/vosk.png";
 
 export const companyName = "Golden Motors";
 export const companyPhone = "+375 (44) 715-66-66";
@@ -68,56 +80,56 @@ export const servises = [
     title: "Обновление пластика",
     description: "Обновление пластиковых элементов салона",
     price: "от 10 BYN",
-    img: "https://images.pexels.com/photos/14870125/pexels-photo-14870125.jpeg",
+    img: update_plastic,
   },
   {
     id: 7,
     title: "Мойка стекол",
     description: "Мойка стекол изнутри и снаружи",
     price: "от 13 BYN",
-    img: "https://images.pexels.com/photos/20044636/pexels-photo-20044636.jpeg",
+    img: glass_wash,
   },
   {
     id: 71,
     title: "Мойка панорамы",
     description: "Мойка стекла панорамы (люк) крыши",
     price: "от 5 BYN",
-    img: "https://images.pexels.com/photos/9380447/pexels-photo-9380447.jpeg", // Заглушка (Sunroof)
+    img: panoram,
   },
   {
     id: 8,
     title: "Мойка ковриков",
     description: "Чистка ковриков",
     price: "от 5 BYN",
-    img: "https://images.pexels.com/photos/4489736/pexels-photo-4489736.jpeg", // Заглушка (Mats)
+    img: carpets,
   },
   {
     id: 9,
     title: "Отбеливание дисков",
     description: "Отбеливание литых дисков",
     price: "от 25 BYN",
-    img: "https://images.pexels.com/photos/11644368/pexels-photo-11644368.jpeg", // Заглушка (Wheels)
+    img: disks,
   },
   {
     id: 11,
     title: "Чернение резины",
     description: "Обработка шин",
     price: "от 10 BYN",
-    img: "https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg", // Заглушка (Tires)
+    img: rezina,
   },
   {
     id: 12,
     title: "Мойка двигателя",
     description: "Профессиональная мойка подкапотного пространства",
     price: "от 30 BYN",
-    img: "https://images.pexels.com/photos/9783353/pexels-photo-9783353.jpeg", // Заглушка (Engine)
+    img: dvig_wash,
   },
   {
     id: 18,
     title: "Антидождь",
     description: "Гидрофобная обработка стекол",
     price: "от 25 BYN",
-    img: "https://images.pexels.com/photos/13627447/pexels-photo-13627447.jpeg", // Заглушка (Rain repellent)
+    img: anti_rain,
   },
 ];
 export const extraServices = [
@@ -130,7 +142,7 @@ export const extraServices = [
     ],
     price: "от 300 BYN",
     description: "Полная химчистка салона автомобиля",
-    img: "https://images.pexels.com/photos/4489749/pexels-photo-4489749.jpeg", // Заглушка (Detailing)
+    img: him,
     hit: false,
   },
   {
@@ -142,7 +154,7 @@ export const extraServices = [
     ],
     price: "от 350 BYN",
     description: "Профессиональная полировка ЛКП",
-    img: "https://images.pexels.com/photos/14532657/pexels-photo-14532657.jpeg", // Заглушка (Polishing)
+    img: polirovka,
     hit: false,
   },
   {
@@ -150,14 +162,14 @@ export const extraServices = [
     title: "Уход за кожей",
     description: "Обновление кожи (+4,00 руб)",
     price: "от 13 BYN",
-    img: "https://images.pexels.com/photos/3770176/pexels-photo-3770176.jpeg", // Заглушка (Leather)
+    img: koza,
   },
   {
     id: 17,
     title: "Твердый воск",
     description: "Нанесение твердого воска (вручную)",
     price: "от 50 BYN",
-    img: "https://images.pexels.com/photos/7565434/pexels-photo-7565434.jpeg", // Заглушка (Wax)
+    img: vosk,
   },
 ];
 
