@@ -1,48 +1,46 @@
-import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { companyMapLink } from "../../app/appInfo";
 import "./Reviwes.css";
 
 export const Reviwes = () => {
-  const [textRef, textVisible] = useScrollReveal({ threshold: 0.2 });
-  const [iframeRef, iframeVisible] = useScrollReveal({ threshold: 0.1 });
-
   return (
-    <section className="reviwes" id="reviews">
-      <div className="reviwes-block">
-        <div
-          ref={textRef}
-          className={`reviwes-text scroll-reveal-bottom ${
-            textVisible ? "revealed" : ""
-          }`}
-        >
-          <h1>Отзывы</h1>
-          <p>Наши клиенты говорят о нас</p>
+    <section className="section reviews" id="reviews">
+      <div className="wrap">
+        <div className="section-head">
+          <div className="section-head__copy">
+            <span className="eyebrow">Отзывы</span>
+            <h2 className="section-title">Что говорят клиенты</h2>
+            <p className="section-lead">
+              Настоящие отзывы с Яндекс Карт - без модерации и выдуманных
+              историй.
+            </p>
+          </div>
+          <a
+            className="section-link"
+            href={companyMapLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Оставить отзыв
+          </a>
         </div>
-        <div className="reviews-cards">
-          <section className="section-rewiwes">
-            <div className="reviews-main"></div>
-            <div
-              ref={iframeRef}
-              className={`reviews-iframe-container scroll-reveal-bottom-scale ${
-                iframeVisible ? "revealed" : ""
-              } scroll-reveal-delay-1`}
+
+        <div className="reviews-panel">
+          <div className="reviews-panel__bar">
+            <span>Яндекс Карты · Golden Motors</span>
+            <a
+              href={companyMapLink}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <iframe
-                className="reviews-iframe"
-                title="Отзывы Яндекс.Карты"
-                src="https://yandex.ru/maps-reviews-widget/53204049636?comments"
-                loading="lazy"
-              ></iframe>
-              <a
-                className="reviews-link"
-                href="https://yandex.by/maps/org/golden_motors/53204049636/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Открыть Голден Моторс на карте Минска в Яндекс.Картах"
-              >
-                Голден Моторс на карте Минска — Яндекс.Карты
-              </a>
-            </div>
-          </section>
+              Открыть на карте
+            </a>
+          </div>
+          <iframe
+            className="reviews-frame"
+            title="Отзывы Golden Motors на Яндекс Картах"
+            src="https://yandex.ru/maps-reviews-widget/53204049636?comments"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>

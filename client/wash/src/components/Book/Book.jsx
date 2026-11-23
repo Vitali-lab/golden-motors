@@ -1,13 +1,28 @@
 import { useEffect, useMemo, useState } from "react";
-import { useScrollReveal } from "../../hooks/useScrollReveal";
-import { servises, complexs, extraServices } from "../../app/appInfo";
-import { API_ENDPOINTS } from "../../config/api";
+import {
+  IoCheckmark,
+  IoLogoWhatsapp,
+  IoCallOutline,
+} from "react-icons/io5";
+import {
+  servises,
+  complexs,
+  extraServices,
+  companyPhone,
+  companyPhoneHref,
+  companyWhatsApp,
+  companyHours,
+} from "../../app/appInfo";
+import { API_ENDPOINTS, IS_STATIC_BUILD } from "../../config/api";
 import "./Book.css";
 
-export const Book = ({ bookRef, selectedService }) => {
-  const [textRef, textVisible] = useScrollReveal({ threshold: 0.2 });
-  const [formRef, formVisible] = useScrollReveal({ threshold: 0.1 });
+const points = [
+  "Подтвердим время по телефону",
+  "Подберём услугу под класс автомобиля",
+  "Ответим на вопросы по цене до записи",
+];
 
+export const Book = ({ bookRef, selectedService }) => {
   const allServices = useMemo(
     () => [
       ...servises,
@@ -16,6 +31,7 @@ export const Book = ({ bookRef, selectedService }) => {
       {
         id: 30,
         title: "Консультация по оклейке плёнкой автомобиля",
+        price: "",
       },
     ],
     [],
@@ -30,50 +46,72 @@ export const Book = ({ bookRef, selectedService }) => {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [feedback, setFeedback] = useState({ type: "", text: "" });
 
   useEffect(() => {
     if (!selectedService) return;
     setFormData((prev) => ({ ...prev, service: selectedService }));
   }, [selectedService]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Очищаем ошибку при изменении поля
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
-  const validatePhone = (phone) => {
-    // Удаляем все нецифровые символы для проверки
-    const digitsOnly = phone.replace(/\D/g, "");
-    return digitsOnly.length >= 9;
+  const validatePhone = (phone) => phone.replace(/\D/g, "").length >= 9;
+
+  const openWhatsApp = () => {
+    const lines = [
+      "Заявка на мойку Golden Motors",
+      `Имя: ${formData.name.trim()}`,
+      `Телефон: ${formData.phone.trim()}`,
+      `Услуга: ${formData.service}`,
+    ];
+    if (formData.note.trim()) lines.push(`Примечание: ${formData.note.trim()}`);
+
+    window.open(
+      `${companyWhatsApp}?text=${encodeURIComponent(lines.join("\n"))}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+    setFeedback({
+      type: "success",
+      text: "Заявка сформирована. Отправьте её в открывшемся WhatsApp.",
+    });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newErrors = {};
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const nextErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "Пожалуйста, укажите ваше имя";
+      nextErrors.name = "Пожалуйста, укажите ваше имя";
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = "Пожалуйста, укажите ваш телефон";
+      nextErrors.phone = "Пожалуйста, укажите ваш телефон";
     } else if (!validatePhone(formData.phone)) {
-      newErrors.phone = "Некорректный номер телефона";
+      nextErrors.phone = "Некорректный номер телефона";
     }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
+      setFeedback({ type: "", text: "" });
       return;
     }
 
     setIsSubmitting(true);
-    setSubmitSuccess(false);
     setErrors({});
+    setFeedback({ type: "", text: "" });
+
+    if (IS_STATIC_BUILD) {
+      openWhatsApp();
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await fetch(API_ENDPOINTS.BOOK, {
@@ -92,29 +130,27 @@ export const Book = ({ bookRef, selectedService }) => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        setSubmitSuccess(true);
-
-        // Сброс формы
+        setFeedback({
+          type: "success",
+          text: "Спасибо! Мы свяжемся с вами в ближайшее время.",
+        });
         setFormData({
           name: "",
           phone: "",
           service: allServices[0]?.title || "",
           note: "",
         });
-
-        setTimeout(() => {
-          setSubmitSuccess(false);
-        }, 5000);
       } else {
-        setErrors({
-          submit: data.error || "Произошла ошибка при отправке заявки",
+        setFeedback({
+          type: "error",
+          text: data.error || "Произошла ошибка при отправке заявки",
         });
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setErrors({
-        submit:
-          "Не удалось отправить заявку. Проверьте подключение к интернету и попробуйте снова.",
+      setFeedback({
+        type: "error",
+        text: "Не удалось отправить заявку. Проверьте подключение и попробуйте снова.",
       });
     } finally {
       setIsSubmitting(false);
@@ -122,35 +158,56 @@ export const Book = ({ bookRef, selectedService }) => {
   };
 
   return (
-    <section ref={bookRef} className="book">
-      <div className="book-block">
-        <div
-          ref={textRef}
-          className={`book-text scroll-reveal-bottom ${
-            textVisible ? "revealed" : ""
-          }`}
-        >
-          <h1>Записаться на мойку</h1>
-          <p>Заполните форму ниже, и мы свяжемся с вами в ближайшее время</p>
+    <section ref={bookRef} className="section book" id="book">
+      <div className="wrap book-layout">
+        <div className="book-copy">
+          <span className="eyebrow">Запись</span>
+          <h2 className="section-title">Забронируйте время в боксе</h2>
+          <p className="section-lead">
+            Оставьте имя и телефон - мы свяжемся, уточним детали и подтвердим
+            удобное время.
+          </p>
+
+          <ul className="book-points">
+            {points.map((point) => (
+              <li key={point}>
+                <IoCheckmark size={16} />
+                {point}
+              </li>
+            ))}
+          </ul>
+
+          <div className="book-contact">
+            <p className="book-contact__label">Или свяжитесь напрямую</p>
+            <a className="book-phone" href={companyPhoneHref}>
+              <IoCallOutline size={20} />
+              {companyPhone}
+            </a>
+            <p className="book-hours">{companyHours}</p>
+            <a
+              className="btn btn--ghost book-whatsapp"
+              href={companyWhatsApp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IoLogoWhatsapp size={18} />
+              Написать в WhatsApp
+            </a>
+          </div>
         </div>
-        <form
-          ref={formRef}
-          className={`book-form scroll-reveal-bottom-scale ${
-            formVisible ? "revealed" : ""
-          } scroll-reveal-delay-1`}
-          onSubmit={handleSubmit}
-          noValidate
-        >
-          <div className="book-form-inputs">
-            <div className="book-form-input-name">
+
+        <form className="book-form" onSubmit={handleSubmit} noValidate>
+          <div className="book-form__row">
+            <div className="field">
               <label htmlFor="name">
-                Имя <span className="required">*</span>
+                Имя <span>*</span>
               </label>
               <input
                 id="name"
                 name="name"
                 type="text"
                 placeholder="Ваше имя"
+                autoComplete="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -158,80 +215,92 @@ export const Book = ({ bookRef, selectedService }) => {
                 aria-describedby={errors.name ? "name-error" : undefined}
               />
               {errors.name && (
-                <span id="name-error" className="error-message" role="alert">
+                <span id="name-error" className="field__error" role="alert">
                   {errors.name}
                 </span>
               )}
             </div>
-            <div className="book-form-input-phone">
+
+            <div className="field">
               <label htmlFor="phone">
-                Телефон <span className="required">*</span>
+                Телефон <span>*</span>
               </label>
               <input
                 id="phone"
                 name="phone"
                 type="tel"
+                inputMode="tel"
                 placeholder="+375 (29) 123-45-67"
+                autoComplete="tel"
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                pattern="[\+]?[0-9\s\-\(\)]+"
                 aria-invalid={errors.phone ? "true" : "false"}
                 aria-describedby={errors.phone ? "phone-error" : undefined}
               />
               {errors.phone && (
-                <span id="phone-error" className="error-message" role="alert">
+                <span id="phone-error" className="field__error" role="alert">
                   {errors.phone}
                 </span>
               )}
             </div>
           </div>
-          <div className="book-form-select">
-            <label htmlFor="service">Выберите услугу</label>
+
+          <div className="field">
+            <label htmlFor="service">Услуга</label>
             <select
               id="service"
               name="service"
               value={formData.service}
               onChange={handleChange}
-              required
             >
-              {allServices.map((item) => {
-                return (
-                  <option key={item.id ?? item.title} value={item.title}>
-                    {item.title} - {item.price}
-                  </option>
-                );
-              })}
+              {allServices.map((item) => (
+                <option key={item.id ?? item.title} value={item.title}>
+                  {item.price ? `${item.title} - ${item.price}` : item.title}
+                </option>
+              ))}
             </select>
           </div>
-          <div className="book-form-input-note">
-            <label htmlFor="note">Примечание (необязательно)</label>
+
+          <div className="field">
+            <label htmlFor="note">Примечание</label>
             <textarea
               id="note"
               name="note"
-              placeholder="Дополнительная информация"
+              placeholder="Марка автомобиля, удобное время или пожелания"
               value={formData.note}
               onChange={handleChange}
-              rows="4"
+              rows="3"
             />
           </div>
-          {errors.submit && (
-            <div className="book-form-error" role="alert">
-              <span className="error-message">{errors.submit}</span>
-            </div>
+
+          {feedback.text && (
+            <p
+              className={`book-feedback book-feedback--${feedback.type}`}
+              role="alert"
+            >
+              {feedback.text}
+            </p>
           )}
-          {submitSuccess && (
-            <div className="book-form-success" role="alert">
-              <span className="success-message">
-                ✅ Спасибо! Мы свяжемся с вами в ближайшее время.
-              </span>
-            </div>
+
+          <button
+            type="submit"
+            className="btn btn--gold book-submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting
+              ? "Отправка..."
+              : IS_STATIC_BUILD
+                ? "Отправить в WhatsApp"
+                : "Записаться"}
+          </button>
+
+          {IS_STATIC_BUILD && (
+            <p className="book-hint">
+              Откроется WhatsApp с готовым текстом заявки - останется нажать
+              «Отправить».
+            </p>
           )}
-          <div className="book-form-button">
-            <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Отправка..." : "Записаться"}
-            </button>
-          </div>
         </form>
       </div>
     </section>

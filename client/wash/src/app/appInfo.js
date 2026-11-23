@@ -1,26 +1,31 @@
-import standart_wash from "../assets/standart_wash.png";
-import techno_wash from "../assets/techno_wash.png";
-import without_sushka from "../assets/without_sushka.png";
-import wash_with_kwarc from "../assets/wash_with_kwarc.png";
-import uborka_salona from "../assets/uborka_salona.png";
-import bagajnik from "../assets/bagajnik.png";
-import vlaga_salon from "../assets/vlaga_salon.png";
-import update_plastic from "../assets/update_plastic.png";
-import glass_wash from "../assets/glass_wash.png";
-import panoram from "../assets/panoram.png";
-import carpets from "../assets/carpets.png";
-import disks from "../assets/disks.png";
-import rezina from "../assets/rezina.png";
-import dvig_wash from "../assets/dvig_wash.png";
-import anti_rain from "../assets/anti_rain.png";
-import him from "../assets/him.png";
-import polirovka from "../assets/polirovka.png";
-import koza from "../assets/koza.png";
-import vosk from "../assets/vosk.png";
+import standart_wash from "../assets/standart_wash.webp";
+import techno_wash from "../assets/techno_wash.webp";
+import without_sushka from "../assets/without_sushka.webp";
+import wash_with_kwarc from "../assets/wash_with_kwarc.webp";
+import uborka_salona from "../assets/uborka_salona.webp";
+import bagajnik from "../assets/bagajnik.webp";
+import vlaga_salon from "../assets/vlaga_salon.webp";
+import update_plastic from "../assets/update_plastic.webp";
+import glass_wash from "../assets/glass_wash.webp";
+import panoram from "../assets/panoram.webp";
+import carpets from "../assets/carpets.webp";
+import disks from "../assets/disks.webp";
+import rezina from "../assets/rezina.webp";
+import dvig_wash from "../assets/dvig_wash.webp";
+import anti_rain from "../assets/anti_rain.webp";
+import him from "../assets/him.webp";
+import polirovka from "../assets/polirovka.webp";
+import koza from "../assets/koza.webp";
+import vosk from "../assets/vosk.webp";
 
 export const companyName = "Golden Motors";
 export const companyPhone = "+375 (44) 715-66-66";
-export const companyAdress = "г.Минск, ул. Тимирязева, 46к8";
+export const companyPhoneHref = "tel:+375447156666";
+export const companyWhatsApp = "https://wa.me/375447156666";
+export const companyAdress = "г. Минск, ул. Тимирязева, 46к8";
+export const companyHours = "Пн–Вс: 9:00 – 19:00";
+export const companyMapLink =
+  "https://yandex.by/maps/org/golden_motors/53204049636/";
 export const companyDevis =
   "Профессиональная автомойка с исключительным результатом. Запишитесь сейчас и почувствуйте разницу.";
 
@@ -187,7 +192,6 @@ export const complexs = [
     ],
     price: "от 62 BYN",
     description: "Полный уход за автомобилем: кузов и салон",
-    img: "https://images.pexels.com/photos/14023348/pexels-photo-14023348.jpeg",
     hit: true,
   },
 ];

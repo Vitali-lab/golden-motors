@@ -1,84 +1,69 @@
-import { useEffect, useState } from "react";
-import { companyName, companyDevis } from "../../app/appInfo";
-import { IoTimeOutline, IoPricetagOutline } from "react-icons/io5";
-import { MdOutlineSecurity } from "react-icons/md";
-import { LuMouse } from "react-icons/lu";
+import { IoArrowForward } from "react-icons/io5";
+import bg from "../../assets/bg.webp";
 import "./Main.css";
 
+const facts = [
+  { value: "от 26 BYN", label: "стандартная мойка" },
+  { value: "15 услуг", label: "кузов, салон, детейлинг" },
+  { value: "9:00–19:00", label: "каждый день" },
+  { value: "Тимирязева, 46к8", label: "Минск" },
+];
+
 export const Main = ({ bookRef, moreRef }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <main className="main">
-      <div className="main-bg">
-        <div className="main-block">
-          <div
-            className={`main-big-text scroll-reveal-bottom-scale ${
-              isVisible ? "revealed" : ""
-            }`}
-          >
-            <h1>{companyName}</h1>
-            <h1>Мойка автомобилей</h1>
-          </div>
-          <div
-            className={`main-lil-text scroll-reveal-bottom ${
-              isVisible ? "revealed" : ""
-            } scroll-reveal-delay-1`}
-          >
-            <h3>{companyDevis}</h3>
-          </div>
-          <div
-            className={`main-buttons scroll-reveal-bottom ${
-              isVisible ? "revealed" : ""
-            } scroll-reveal-delay-2`}
-          >
+    <section className="hero" id="top">
+      <div className="hero-media">
+        <img
+          src={bg}
+          alt="Автомобиль BMW на мойке Golden Motors"
+          fetchPriority="high"
+        />
+      </div>
+      <div className="hero-veil" aria-hidden="true" />
+
+      <div className="hero-inner wrap">
+        <div className="hero-copy">
+          <p className="hero-kicker enter enter-1">
+            <span className="hero-dot" aria-hidden="true" />
+            Автомойка и детейлинг в Минске
+          </p>
+          <h1 className="enter enter-2">
+            Мойка, после которой машину замечают
+          </h1>
+          <p className="hero-lead enter enter-3">
+            Ручная мойка, уборка салона и защита кузова на Тимирязева, 46к8.
+            Работаем каждый день с 9:00 до 19:00.
+          </p>
+          <div className="hero-actions enter enter-4">
             <button
-              onClick={() => {
-                bookRef.current?.scrollIntoView({ behavior: "smooth" });
-              }}
-              aria-label="Перейти к форме записи на мойку"
+              type="button"
+              className="btn btn--gold"
+              onClick={() => bookRef.current?.scrollIntoView({ behavior: "smooth" })}
             >
               Записаться на мойку
+              <IoArrowForward size={17} />
             </button>
             <button
-              onClick={() => {
-                moreRef.current?.scrollIntoView({ behavior: "smooth" });
-              }}
-              aria-label="Узнать больше о наших услугах"
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => moreRef.current?.scrollIntoView({ behavior: "smooth" })}
             >
-              Узнать больше
+              Смотреть услуги
             </button>
-          </div>
-          <div
-            className={`main-icons scroll-reveal-bottom ${
-              isVisible ? "revealed" : ""
-            } scroll-reveal-delay-3`}
-          >
-            <div className="main-icon">
-              <IoPricetagOutline color="gold" size={30} />
-              <p>Приятные цены</p>
-            </div>
-            <div className="main-icon">
-              <IoTimeOutline color="gold" size={30} />
-              <p>Быстрый сервис</p>
-            </div>
-            <div className="main-icon">
-              <MdOutlineSecurity color="gold" size={30} />
-              <p>Гарантия качества</p>
-            </div>
-          </div>
-          <div className="main-mouse" aria-hidden="true">
-            <LuMouse color="grey" size={40} />
           </div>
         </div>
       </div>
-    </main>
+
+      <div className="hero-facts-wrap">
+        <div className="hero-facts wrap">
+          {facts.map((fact) => (
+            <div className="hero-fact" key={fact.label}>
+              <strong>{fact.value}</strong>
+              <span>{fact.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };

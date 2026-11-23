@@ -1,81 +1,113 @@
-import { useScrollReveal } from "../../hooks/useScrollReveal";
-import {
-  servicesOb,
-  complexesOb,
-  extraServicesOb,
-} from "../../app/appInfo";
+import { useRef, useState } from "react";
+import { servicesOb, complexesOb, extraServicesOb } from "../../app/appInfo";
 import "./Wrap.css";
 
+const tabs = [
+  { id: "elements", label: "Элементы кузова" },
+  { id: "kits", label: "Готовые комплекты" },
+  { id: "extra", label: "Дополнительно" },
+];
+
 export const Wrap = () => {
-  const [textRef, textVisible] = useScrollReveal({ threshold: 0.2 });
-  const [servicesRef, servicesVisible] = useScrollReveal({ threshold: 0.1 });
-  const [setsRef, setsVisible] = useScrollReveal({ threshold: 0.1 });
+  const [active, setActive] = useState("elements");
+  const tabListRef = useRef(null);
+
+  const onKeyDown = (event) => {
+    const keys = ["ArrowRight", "ArrowLeft", "Home", "End"];
+    if (!keys.includes(event.key)) return;
+    event.preventDefault();
+    const buttons = Array.from(
+      tabListRef.current?.querySelectorAll('[role="tab"]') ?? [],
+    );
+    const index = buttons.indexOf(document.activeElement);
+    if (index < 0) return;
+    let next = index;
+    if (event.key === "ArrowRight") next = (index + 1) % buttons.length;
+    if (event.key === "ArrowLeft") next = (index - 1 + buttons.length) % buttons.length;
+    if (event.key === "Home") next = 0;
+    if (event.key === "End") next = buttons.length - 1;
+    buttons[next]?.focus();
+    setActive(tabs[next].id);
+  };
 
   return (
-    <section className="wrap" id="wrap">
-      <div className="wrap-block">
-        <div
-          ref={textRef}
-          className={`wrap-text scroll-reveal-bottom ${
-            textVisible ? "revealed" : ""
-          }`}
-        >
-          <h1>Оклейка автомобиля плёнкой</h1>
-          <p>
-            Защитите кузов от сколов и потертостей. Подберём решение под ваш
-            бюджет: локальные элементы, готовые комплекты или дополнительные
-            работы.
-          </p>
+    <section className="section wrap-section" id="wrap">
+      <div className="wrap">
+        <div className="section-head">
+          <div className="section-head__copy">
+            <span className="eyebrow">Защита кузова</span>
+            <h2 className="section-title">Оклейка автомобиля плёнкой</h2>
+            <p className="section-lead">
+              Защищает кузов от сколов и потёртостей. Можно закрыть отдельные
+              элементы или взять готовый комплект.
+            </p>
+          </div>
         </div>
 
         <div
-          ref={servicesRef}
-          className={`wrap-cards ${servicesVisible ? "revealed" : ""}`}
+          className="film-tabs"
+          role="tablist"
+          aria-label="Разделы оклейки плёнкой"
+          ref={tabListRef}
+          onKeyDown={onKeyDown}
         >
-          {servicesOb.map((service, index) => (
-            <article
-              key={service.id}
-              className={`wrap-card scroll-reveal-bottom-scale ${
-                servicesVisible ? "revealed" : ""
-              } scroll-reveal-delay-${Math.min(index + 1, 6)}`}
+          {tabs.map((tab) => (
+            <button
+              type="button"
+              key={tab.id}
+              role="tab"
+              id={`film-tab-${tab.id}`}
+              aria-selected={active === tab.id}
+              aria-controls={`film-panel-${tab.id}`}
+              tabIndex={active === tab.id ? 0 : -1}
+              className={`film-tab${active === tab.id ? " is-active" : ""}`}
+              onClick={() => setActive(tab.id)}
             >
-              <div className="wrap-card-head">
-                <span className="wrap-card-label">Элемент</span>
-                <span className="wrap-card-price">{service.price}</span>
-              </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-            </article>
+              {tab.label}
+            </button>
           ))}
         </div>
 
         <div
-          ref={setsRef}
-          className={`wrap-sets scroll-reveal-bottom ${
-            setsVisible ? "revealed" : ""
-          }`}
+          className="film-panel"
+          role="tabpanel"
+          id="film-panel-elements"
+          aria-labelledby="film-tab-elements"
+          hidden={active !== "elements"}
         >
-          <div className="wrap-section-head">
-            <div>
-              <h2>Готовые комплекты</h2>
-              <p>Оптимальные сочетания элементов под разный бюджет</p>
-            </div>
+          <div className="film-list">
+            {servicesOb.map((service) => (
+              <div className="film-row" key={service.id}>
+                <div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </div>
+                <span>{service.price}</span>
+              </div>
+            ))}
           </div>
-          <div className="wrap-sets-grid">
-            {complexesOb.map((complex, index) => (
+        </div>
+
+        <div
+          className="film-panel"
+          role="tabpanel"
+          id="film-panel-kits"
+          aria-labelledby="film-tab-kits"
+          hidden={active !== "kits"}
+        >
+          <div className="kit-grid">
+            {complexesOb.map((kit, index) => (
               <article
-                key={complex.id}
-                className={`wrap-set-card scroll-reveal-bottom-scale ${
-                  setsVisible ? "revealed" : ""
-                } scroll-reveal-delay-${Math.min(index + 1, 6)}`}
+                className={`kit-card${index === complexesOb.length - 1 ? " is-featured" : ""}`}
+                key={kit.id}
               >
-                <div className="wrap-set-head">
-                  <h3>{complex.title}</h3>
-                  <span className="wrap-set-price">{complex.price}</span>
+                <div className="kit-card__head">
+                  <h3>{kit.title}</h3>
+                  <span>{kit.price}</span>
                 </div>
                 <ul>
-                  {complex.details.map((detail) => (
-                    <li key={`${complex.id}-${detail}`}>{detail}</li>
+                  {kit.details.map((detail) => (
+                    <li key={`${kit.id}-${detail}`}>{detail}</li>
                   ))}
                 </ul>
               </article>
@@ -83,21 +115,21 @@ export const Wrap = () => {
           </div>
         </div>
 
-        <div className="wrap-extra">
-          <div className="wrap-section-head">
-            <div>
-              <h2>Дополнительные услуги</h2>
-              <p>Закрываем сопутствующие задачи по плёнке и тонировке</p>
-            </div>
-          </div>
-          <div className="wrap-extra-list">
+        <div
+          className="film-panel"
+          role="tabpanel"
+          id="film-panel-extra"
+          aria-labelledby="film-tab-extra"
+          hidden={active !== "extra"}
+        >
+          <div className="film-list film-list--single">
             {extraServicesOb.map((service) => (
-              <div key={service.id} className="wrap-extra-item">
-                <div className="wrap-extra-text">
-                  <h4>{service.title}</h4>
+              <div className="film-row" key={service.id}>
+                <div>
+                  <h3>{service.title}</h3>
                   <p>{service.description}</p>
                 </div>
-                <span className="wrap-extra-price">{service.price}</span>
+                <span>{service.price}</span>
               </div>
             ))}
           </div>

@@ -38,20 +38,29 @@ function App() {
 
   return (
     <>
+      <a className="skip-link" href="#services">
+        Перейти к услугам
+      </a>
       <Header onNavClick={handleNavClick} />
-      <Main bookRef={bookRef} moreRef={moreRef} />
-      <Services moreRef={moreRef} />
-      <Complex
-        onSelectService={setSelectedService}
-        onChooseService={handleNavClick}
-      />
-      <Wrap />
-      <WhyChooseUs />
-      <Gallery />
-      <HowItWork />
-      <Reviwes />
-      <Book bookRef={bookRef} selectedService={selectedService} />
-      <Contacts />
+      <main>
+        <Main bookRef={bookRef} moreRef={moreRef} />
+        <Services
+          moreRef={moreRef}
+          onSelectService={setSelectedService}
+          onChooseService={handleNavClick}
+        />
+        <Complex
+          onSelectService={setSelectedService}
+          onChooseService={handleNavClick}
+        />
+        <Wrap />
+        <WhyChooseUs />
+        <Gallery />
+        <HowItWork />
+        <Reviwes />
+        <Book bookRef={bookRef} selectedService={selectedService} />
+        <Contacts />
+      </main>
       <Footer />
     </>
   );

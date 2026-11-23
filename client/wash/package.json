@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:server": "cd server && npm run dev",
-    "dev:server:simple": "cd server && npm run dev:simple",
+    "dev:server": "npm --prefix ../../server run dev",
+    "dev:server:simple": "npm --prefix ../../server run dev:simple",
     "dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "cd server && npm start",
-    "server:install": "cd server && npm install"
+    "server": "npm --prefix ../../server start",
+    "server:install": "npm --prefix ../../server install"
   },
   "dependencies": {
     "react": "^19.2.0",

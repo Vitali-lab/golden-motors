@@ -1,137 +1,88 @@
-.how-it-work {
-  width: 100%;
-  height: 100%;
-  background-color: #242424;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.how {
+  background: var(--ink-soft);
+  border-top: 1px solid var(--line);
+}
+
+.how-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.how-step {
   position: relative;
+  padding: 34px clamp(20px, 3vw, 40px) 8px;
+  border-left: 1px solid var(--line);
 }
-.how-it-work-block {
-  width: 80%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin: 80px 0;
+
+.how-step:first-child {
+  padding-left: 0;
+  border-left: 0;
 }
-.how-it-work-text {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  text-align: center;
-}
-.how-it-work-text h1 {
-  font-size: 45px;
+
+.how-step__number {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(48px, 5vw, 68px);
   font-weight: 300;
-  margin: 0;
-  margin-bottom: 20px;
-}
-.how-it-work-text p {
-  font-size: 15px;
-  color: grey;
-  font-weight: 300;
-  margin: 0;
-  text-align: center;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--gold);
 }
 
-.how-it-work-cards {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-.how-it-work-card {
-  width: 30%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin: 40px 0;
-  text-align: center;
-  z-index: 1;
-  box-sizing: border-box;
-  padding: 20px 0;
-  border-radius: 20px;
-  transition: all 0.3s ease-in-out;
+.how-step h3 {
+  margin-top: 22px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-.how-it-work-card-circle {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: gold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-.how-it-work-card-circle h2 {
-  font-size: 45px;
-  font-weight: 300;
-  margin: 0;
-  color: black;
-  z-index: 2;
+.how-step p {
+  max-width: 300px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-@media screen and (max-width: 1000px) {
-  .how-it-work-block {
-    width: 90%;
+@media (max-width: 820px) {
+  .how-list {
+    grid-template-columns: minmax(0, 1fr);
+    border-top: 0;
   }
-  .how-it-work-card {
-    width: 40%;
+
+  .how-step,
+  .how-step:first-child {
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .how-step {
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr);
+    column-gap: 20px;
+    align-items: start;
+  }
+
+  .how-step h3 {
+    margin-top: 8px;
+  }
+
+  .how-step p {
+    grid-column: 2;
+    margin-top: 4px;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .how-it-work-block {
-    width: 95%;
-    margin: 50px 0;
+@media (max-width: 480px) {
+  .how-step {
+    grid-template-columns: 64px minmax(0, 1fr);
+    column-gap: 16px;
   }
-  .how-it-work-text h1 {
-    font-size: 35px;
-  }
-  .how-it-work-text p {
-    font-size: 14px;
-  }
-}
 
-@media screen and (max-width: 600px) {
-  .how-it-work-block {
-    width: 95%;
+  .how-step__number {
+    font-size: 42px;
   }
-  .how-it-work-card {
-    width: 90%;
-    margin: 10px 0;
-  }
-  .how-it-work-text h1 {
-    font-size: 30px;
-  }
-}
-
-.how-it-work-card h3 {
-  font-size: 25px;
-  font-weight: 300;
-  margin: 0;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  color: #fff;
-}
-.how-it-work-card p {
-  font-size: 15px;
-  color: grey;
-  font-weight: 300;
-  margin: 0;
-  text-align: center;
 }

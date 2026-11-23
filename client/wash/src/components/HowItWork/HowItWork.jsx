@@ -1,59 +1,46 @@
-import { useScrollReveal } from "../../hooks/useScrollReveal";
 import "./HowItWork.css";
 
+const steps = [
+  {
+    number: "01",
+    title: "Выберите услугу",
+    description:
+      "Мойка, комплекс или детейлинг. Если не уверены - подскажем по телефону.",
+  },
+  {
+    number: "02",
+    title: "Оставьте заявку",
+    description: "Имя, телефон и удобное время. Без регистрации и лишних полей.",
+  },
+  {
+    number: "03",
+    title: "Подтвердите запись",
+    description:
+      "Мы свяжемся, уточним детали и закрепим за вами время в боксе.",
+  },
+];
+
 export const HowItWork = () => {
-  const [textRef, textVisible] = useScrollReveal({ threshold: 0.2 });
-  const [cardsRef, cardsVisible] = useScrollReveal({ threshold: 0.1 });
-
-  const steps = [
-    {
-      number: "1",
-      title: "Выберите услугу",
-      description: "Выберите тип мойки или комплекс услуг, который вам подходит",
-    },
-    {
-      number: "2",
-      title: "Заполните форму",
-      description: "Укажите ваше имя, телефон и удобное время для записи",
-    },
-    {
-      number: "3",
-      title: "Подтвердите запись",
-      description: "Мы свяжемся с вами для подтверждения и уточнения деталей",
-    },
-  ];
-
   return (
-    <section className="how-it-work" id="how-it-work">
-      <div className="how-it-work-block">
-        <div
-          ref={textRef}
-          className={`how-it-work-text scroll-reveal-bottom ${
-            textVisible ? "revealed" : ""
-          }`}
-        >
-          <h1>Как записаться на мойку</h1>
-          <p>Записаться на мойку автомобиля стало проще простого</p>
+    <section className="section how" id="how-it-work">
+      <div className="wrap">
+        <div className="section-head">
+          <div className="section-head__copy">
+            <span className="eyebrow">Как записаться</span>
+            <h2 className="section-title">Три шага до чистого автомобиля</h2>
+            <p className="section-lead">
+              Запись занимает меньше минуты. Всё остальное сделаем мы.
+            </p>
+          </div>
         </div>
-        <div
-          ref={cardsRef}
-          className={`how-it-work-cards ${cardsVisible ? "revealed" : ""}`}
-        >
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className={`how-it-work-card scroll-reveal-bottom-scale ${
-                cardsVisible ? "revealed" : ""
-              } scroll-reveal-delay-${Math.min(index + 1, 6)}`}
-            >
-              <div className="how-it-work-card-circle">
-                <h2>{step.number}</h2>
-              </div>
-              <div>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </div>
-            </div>
+
+        <div className="how-list">
+          {steps.map((step) => (
+            <article className="how-step" key={step.number}>
+              <span className="how-step__number">{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </article>
           ))}
         </div>
       </div>
